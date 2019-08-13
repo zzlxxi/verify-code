@@ -2,6 +2,7 @@ package ink.icopy.verifycode.contorller;
 
 import ink.icopy.verifycode.annotation.HttpMethodFlag;
 import ink.icopy.verifycode.util.VerifyCodeUtils;
+import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,12 @@ import java.io.IOException;
 @RestController
 public class VerifyCodeController {
 
+    private OkHttpClient httpClient;
     Logger logger = LoggerFactory.getLogger(VerifyCodeController.class);
+
+    public VerifyCodeController(OkHttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
 
     @GetMapping("/verifyCode")
     public void code(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -43,5 +49,18 @@ public class VerifyCodeController {
         String sessionId = session.getId();
         logger.info(sessionId + " : " + code);
         return sessionId;
+    }
+
+    @PostMapping("/request")
+    public String request() {
+        RequestBody requestBody = RequestBody.create(MediaType.get("application/json; charset=utf-8"), "{\"link\":\"https://www.baidu.com\"}");
+        Request request = new Request.Builder().url("https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&sugsid=1434,21122,29523,29519,29098,29568,28835,29221,29589&wd=%E4%B8%8A%E6%B5%B7%E5%A4%A9%E6%B0%94&req=2&pbs=%E4%B8%8A%E6%B5%B7%E5%A4%A9%E6%B0%94&csor=4&pwd=%E4%B8%8A%E6%B5%B7tianqi&cb=jQuery1102019553796293507797_1565684648253&_=1565684648272").method("GET", null).build();
+        try {
+            Response response = httpClient.newCall(request).execute();
+            return response.body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -1,8 +1,8 @@
 package ink.icopy.verifycode;
 
+import okhttp3.OkHttpClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
@@ -12,6 +12,12 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableAspectJAutoProxy
 @SpringBootApplication
 public class VerifyCodeApplication {
+
+    private OkHttpClient okHttpClient;
+
+    public VerifyCodeApplication(OkHttpClient okHttpClient) {
+        this.okHttpClient = okHttpClient;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(VerifyCodeApplication.class, args);

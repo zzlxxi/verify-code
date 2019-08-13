@@ -1,9 +1,7 @@
 package ink.icopy.verifycode.annotation;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -27,6 +25,7 @@ public class HttpMethodFlagHandler {
 
     @Before("pointCut()")
     public void before(JoinPoint joinPoint) {
+        logger.info("currentTime: " + System.currentTimeMillis());
         final Class<?> target = joinPoint.getTarget().getClass();
         for (Method method : target.getMethods()) {
             final HttpMethodFlag annotation = method.getAnnotation(HttpMethodFlag.class);
@@ -44,6 +43,11 @@ public class HttpMethodFlagHandler {
                 logger.error(className);
             }
         }
+    }
+
+     @After("pointCut()")
+    public void after() {
+        logger.info("currentTime: " + System.currentTimeMillis());
     }
 
 }
