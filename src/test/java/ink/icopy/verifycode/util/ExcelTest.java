@@ -1,5 +1,7 @@
 package ink.icopy.verifycode.util;
 
+import ink.icopy.verifycode.entity.UserEntity;
+import ink.icopy.verifycode.util.excel.ExcelUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellReference;
@@ -12,10 +14,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
-import static org.apache.poi.ss.usermodel.CellType.*;
+import static org.apache.poi.ss.usermodel.CellType.ERROR;
 
 
 @SpringBootTest
@@ -250,6 +254,27 @@ public class ExcelTest {
         cellStyle.setAlignment(alignment);
         cellStyle.setVerticalAlignment(verticalAlignment);
         cell.setCellStyle(cellStyle);
+    }
+
+
+    @Test
+    public void createWorkBook() {
+        String[] titles = {"id", "name", "phone", "address"};
+        List<UserEntity> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setAddress("address " + i);
+            userEntity.setId(Long.parseLong(String.valueOf(i)));
+            userEntity.setName("这是中文名字AVC " + i);
+            userEntity.setPhone("1234567890 " + i);
+            list.add(userEntity);
+        }
+
+        try {
+            ExcelUtils.HSSFWorkbook(list).write(new FileOutputStream("D:/aaa.xls"));
+        } catch (IOException e) {
+            logger.error(e.toString());
+        }
     }
 
 }
