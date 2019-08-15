@@ -2,6 +2,7 @@ package ink.icopy.verifycode.util;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.ss.util.WorkbookUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
@@ -13,6 +14,8 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import static org.apache.poi.ss.usermodel.CellType.*;
 
 
 @SpringBootTest
@@ -94,7 +97,7 @@ public class ExcelTest {
         row.createCell(2).setCellValue(Calendar.getInstance());
         row.createCell(3).setCellValue("a string");
         row.createCell(4).setCellValue(true);
-        row.createCell(5).setCellType(CellType.ERROR);
+        row.createCell(5).setCellType(ERROR);
 
         wb.write(outputStream);
     }
@@ -121,6 +124,48 @@ public class ExcelTest {
         Date dateCellValue = cell.getDateCellValue();
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm");
         logger.error(sdf.format(dateCellValue));
+    }
+
+    @Test
+    public void ReadWorkBookByInputStreamLoopCell() throws IOException {
+        DataFormatter formatter = new DataFormatter();
+        String fileName = FOLDER_NAME + "newDateCell" + XLS;
+        Workbook wb = WorkbookFactory.create(new FileInputStream(fileName));
+        Sheet sheet1 = wb.getSheetAt(0);
+        for (Row row : sheet1) {
+            for (Cell cell : row) {
+                CellReference cellRef = new CellReference(row.getRowNum(), cell.getColumnIndex());
+                System.out.print(cellRef.formatAsString());
+                System.out.print(" - ");
+
+                // get the text that appears in the cell by getting the cell value and applying any data formats (Date, 0.00, 1.23e9, $1.23, etc)
+                String text = formatter.formatCellValue(cell);
+                System.out.println(text);
+
+                // Alternatively, get the value and format it yourself
+                switch (cell.getCellType()) {
+                    case STRING:
+                        System.out.println(cell.getRichStringCellValue().getString());
+                        break;
+                    case NUMERIC:
+                        if (DateUtil.isCellDateFormatted(cell)) {
+                            System.out.println(cell.getDateCellValue());
+                        } else {
+                            System.out.println(cell.getNumericCellValue());
+                        }
+                        break;
+                    case BOOLEAN:
+                        System.out.println(cell.getBooleanCellValue());
+                        break;
+                    case FORMULA:
+                        System.out.println(cell.getCellFormula());
+                        break;
+                    case BLANK:
+                    default:
+                        System.out.println();
+                }
+            }
+        }
     }
 
     @Test
