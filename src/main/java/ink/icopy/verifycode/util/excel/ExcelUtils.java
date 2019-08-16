@@ -37,8 +37,10 @@ public class ExcelUtils {
 
         final Field[] declaredFields = list.get(0).getClass().getDeclaredFields();
         for (int i = 0; i < declaredFields.length; i++) {
+            /*
             ExcelTitleAnnotation annotation = declaredFields[i].getAnnotation(ExcelTitleAnnotation.class);
-            row.createCell(i).setCellValue(annotation.value());
+             */
+            row.createCell(i).setCellValue(declaredFields[i].getName());
             sheet.setColumnWidth((short) (i + 1), (short) ((50 * 8) / ((double) 1 / 20)));
         }
 

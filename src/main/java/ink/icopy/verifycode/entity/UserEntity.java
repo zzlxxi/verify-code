@@ -1,6 +1,5 @@
 package ink.icopy.verifycode.entity;
 
-import ink.icopy.verifycode.util.excel.annotation.ExcelTitleAnnotation;
 import lombok.Data;
 
 /**
@@ -9,12 +8,20 @@ import lombok.Data;
  */
 @Data
 public class UserEntity {
-    @ExcelTitleAnnotation(value = "id")
+    /**
+     * @ExcelTitleAnnotation(value = "id")
+     */
     private Long id;
-    @ExcelTitleAnnotation(value = "name")
+    /**
+     * @ExcelTitleAnnotation(value = "name")
+     */
     private String name;
-    @ExcelTitleAnnotation(value = "phone")
+    /**
+     * @ExcelTitleAnnotation(value = "phone")
+     */
     private String phone;
-    @ExcelTitleAnnotation(value = "address")
+    /**
+     * @ExcelTitleAnnotation(value = "address")
+     */
     private String address;
 }
