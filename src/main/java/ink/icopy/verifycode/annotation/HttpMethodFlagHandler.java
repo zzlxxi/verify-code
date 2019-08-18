@@ -17,37 +17,36 @@ import java.lang.reflect.Method;
 @Component
 public class HttpMethodFlagHandler {
 
-    Logger logger = LoggerFactory.getLogger(HttpMethodFlagHandler.class);
+  Logger logger = LoggerFactory.getLogger(HttpMethodFlagHandler.class);
 
-    @Pointcut("@annotation(ink.icopy.verifycode.annotation.HttpMethodFlag)")
-    public void pointCut() {
+  @Pointcut("@annotation(ink.icopy.verifycode.annotation.HttpMethodFlag)")
+  public void pointCut() {}
+
+  @Before("pointCut()")
+  public void before(JoinPoint joinPoint) {
+    logger.info("currentTime: " + System.currentTimeMillis());
+    final Class<?> target = joinPoint.getTarget().getClass();
+    for (Method method : target.getMethods()) {
+      final HttpMethodFlag annotation = method.getAnnotation(HttpMethodFlag.class);
+      if (annotation != null) {
+        logger.error(annotation.name());
+      }
     }
-
-    @Before("pointCut()")
-    public void before(JoinPoint joinPoint) {
-        logger.info("currentTime: " + System.currentTimeMillis());
-        final Class<?> target = joinPoint.getTarget().getClass();
-        for (Method method : target.getMethods()) {
-            final HttpMethodFlag annotation = method.getAnnotation(HttpMethodFlag.class);
-            if (annotation != null) {
-                logger.error(annotation.name());
-            }
-        }
-        for (Object arg : joinPoint.getArgs()) {
-            Class<?> clazz = arg.getClass();
-            String className = clazz.getName();
-            if ("org.springframework.web.multipart.support.StandardMultipartHttpServletRequest".equals(className)) {
-                HttpServletRequest request = (HttpServletRequest) arg;
-                logger.error(String.valueOf(request.getRequestURL()));
-            } else {
-                logger.error(className);
-            }
-        }
+    for (Object arg : joinPoint.getArgs()) {
+      Class<?> clazz = arg.getClass();
+      String className = clazz.getName();
+      if ("org.springframework.web.multipart.support.StandardMultipartHttpServletRequest"
+          .equals(className)) {
+        HttpServletRequest request = (HttpServletRequest) arg;
+        logger.error(String.valueOf(request.getRequestURL()));
+      } else {
+        logger.error(className);
+      }
     }
+  }
 
-     @After("pointCut()")
-    public void after() {
-        logger.info("currentTime: " + System.currentTimeMillis());
-    }
-
+  @After("pointCut()")
+  public void after() {
+    logger.info("currentTime: " + System.currentTimeMillis());
+  }
 }

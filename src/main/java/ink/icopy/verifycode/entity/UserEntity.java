@@ -8,20 +8,12 @@ import lombok.Data;
  */
 @Data
 public class UserEntity {
-    /**
-     * @ExcelTitleAnnotation(value = "id")
-     */
-    private Long id;
-    /**
-     * @ExcelTitleAnnotation(value = "name")
-     */
-    private String name;
-    /**
-     * @ExcelTitleAnnotation(value = "phone")
-     */
-    private String phone;
-    /**
-     * @ExcelTitleAnnotation(value = "address")
-     */
-    private String address;
+  /** @ExcelTitleAnnotation(value = "id") */
+  private Long id;
+  /** @ExcelTitleAnnotation(value = "name") */
+  private String name;
+  /** @ExcelTitleAnnotation(value = "phone") */
+  private String phone;
+  /** @ExcelTitleAnnotation(value = "address") */
+  private String address;
 }

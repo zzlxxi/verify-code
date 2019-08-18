@@ -15,20 +15,16 @@ import java.io.IOException;
 @RunWith(SpringRunner.class)
 public class OkHttpTest {
 
-    @Autowired
-    private OkHttpClient client;
+  @Autowired private OkHttpClient client;
 
-    @Test
-    public void request() {
-        Request request = new Request.Builder()
-                .url("https://publicobject.com/helloworld.txt")
-                .build();
-        try {
-            final Response response = client.newCall(request).execute();
-            response.body().source().readByteString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+  @Test
+  public void request() {
+    Request request = new Request.Builder().url("https://publicobject.com/helloworld.txt").build();
+    try {
+      final Response response = client.newCall(request).execute();
+      response.body().source().readByteString();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-
+  }
 }

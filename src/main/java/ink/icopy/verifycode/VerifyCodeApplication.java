@@ -13,14 +13,13 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @SpringBootApplication
 public class VerifyCodeApplication {
 
-    private OkHttpClient okHttpClient;
+  private OkHttpClient okHttpClient;
 
-    public VerifyCodeApplication(OkHttpClient okHttpClient) {
-        this.okHttpClient = okHttpClient;
-    }
+  public VerifyCodeApplication(OkHttpClient okHttpClient) {
+    this.okHttpClient = okHttpClient;
+  }
 
-    public static void main(String[] args) {
-        SpringApplication.run(VerifyCodeApplication.class, args);
-    }
-
+  public static void main(String[] args) {
+    SpringApplication.run(VerifyCodeApplication.class, args);
+  }
 }

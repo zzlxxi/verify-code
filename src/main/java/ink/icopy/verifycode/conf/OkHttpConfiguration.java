@@ -14,14 +14,15 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class OkHttpConfiguration {
 
-    @Bean
-    public OkHttpClient OkHttpClient() {
-        return new OkHttpClient().newBuilder()
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .readTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(15, TimeUnit.SECONDS)
-                .sslSocketFactory(SSLSocketClientFactory.getSSLSocketFactory())
-                .hostnameVerifier(SSLSocketClientFactory.getHostnameVerifier())
-                .build();
-    }
+  @Bean
+  public OkHttpClient OkHttpClient() {
+    return new OkHttpClient()
+        .newBuilder()
+        .connectTimeout(15, TimeUnit.SECONDS)
+        .readTimeout(15, TimeUnit.SECONDS)
+        .writeTimeout(15, TimeUnit.SECONDS)
+        .sslSocketFactory(SSLSocketClientFactory.getSSLSocketFactory())
+        .hostnameVerifier(SSLSocketClientFactory.getHostnameVerifier())
+        .build();
+  }
 }
