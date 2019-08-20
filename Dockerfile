@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk:8u222-jre
 RUN mkdir /verify_code
 COPY ./target/verify-code.jar /verify_code
 WORKDIR /verify_code
