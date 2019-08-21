@@ -6,3 +6,5 @@ docker build -t ${image} . &&
 docker tag ${image} ${mirro}/${image} && 
 docker rmi ${image} && 
 docker push ${mirro}/${image}
+
+
