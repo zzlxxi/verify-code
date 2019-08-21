@@ -25,3 +25,8 @@
 hs_err_pid*
 
 .idea/
+.mvn/wrapper/MavenWrapperDownloader.java
+.mvn/wrapper/maven-wrapper.properties
+src/main/resources/templates/
+target/
+verify-code.iml

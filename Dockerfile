@@ -1,4 +1,4 @@
-FROM openjdk:8u222-jre
+FROM frolvlad/alpine-oraclejre8:slim
 RUN mkdir /verify_code
 COPY ./target/verify-code.jar /verify_code
 WORKDIR /verify_code
