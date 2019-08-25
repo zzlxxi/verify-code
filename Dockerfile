@@ -1,4 +1,4 @@
-FROM frolvlad/alpine-oraclejre8:8.202.08-slim
+FROM java:8-jre-alpine
 RUN mkdir /verify_code
 COPY ./target/verify-code.jar /verify_code
 WORKDIR /verify_code
