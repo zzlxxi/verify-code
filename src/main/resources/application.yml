@@ -6,3 +6,27 @@ spring:
       cache: false
   application:
     name: verify-code
+  datasource:
+    druid:
+      url: jdbc:mysql://45.62.114.57:3306/test?useUnicode=true&characterEncoding=utf8
+      username: root
+      password: 1234567890
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initial-size: 1
+      max-active: 20
+      max-wait: 60000
+      filter: stat,slf4j
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      async-init: true
+      web-stat-filter:
+        enabled: true
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: admin123
