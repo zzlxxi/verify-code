@@ -12,7 +12,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  */
 @EnableAspectJAutoProxy
 @SpringBootApplication
-@MapperScan("ink.icopy.verifycode.mapper")
 public class VerifyCodeApplication {
 
   private OkHttpClient okHttpClient;
