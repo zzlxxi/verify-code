@@ -19,7 +19,7 @@ spring:
         stat:
           enabled: true
           log-slow-sql: true
-          slow-sql-millis: 200
+          slow-sql-millis: 2000
 
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
