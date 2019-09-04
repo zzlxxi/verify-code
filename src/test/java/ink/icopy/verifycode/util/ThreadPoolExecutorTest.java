@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.ExecutorService;
 
 @SpringBootTest
 public class ThreadPoolExecutorTest {
@@ -14,26 +14,26 @@ public class ThreadPoolExecutorTest {
 
   @Test
   public void pool() {
-    ThreadPoolExecutor executor =
-        ThreadPoolExecutorUtils.threadPoolExecutor("logThread", false, 5, 20, 0L);
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
-    executor.submit(() -> logger.info(Thread.currentThread().getName()));
+    ExecutorService executorService =
+        ThreadPoolExecutorUtils.threadPoolExecutor("TestThreadName", false, 5, 20, 0L);
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
+    executorService.submit(() -> logger.info(Thread.currentThread().getName()));
 
-    executor.shutdown();
-    if (executor.isShutdown()) {
+    executorService.shutdown();
+    if (executorService.isShutdown()) {
       logger.info("线程池关闭");
     }
   }
