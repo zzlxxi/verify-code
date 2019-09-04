@@ -1,11 +1,10 @@
 package ink.icopy.verifycode.service.iml;
 
 import ink.icopy.verifycode.service.IAccountService;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 
 /** @author lizhengguang */
 public class AccountServiceImpl implements IAccountService {
@@ -14,7 +13,7 @@ public class AccountServiceImpl implements IAccountService {
   private JdbcTemplate jdbcTemplate;
 
   @Transactional
-  public void increaseAmount(String accountId, double amount) throws ServiceException {
+  public void increaseAmount(String accountId, double amount) {
     this.jdbcTemplate.update(
         "update tb_account set frozen = frozen + ? where acct_id = ?", amount, accountId);
   }
