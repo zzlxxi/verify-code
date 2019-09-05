@@ -33,8 +33,5 @@ public class ThreadPoolExecutorTest {
     executorService.submit(() -> logger.info(Thread.currentThread().getName()));
 
     executorService.shutdown();
-    if (executorService.isShutdown()) {
-      logger.info("线程池关闭");
-    }
   }
 }
